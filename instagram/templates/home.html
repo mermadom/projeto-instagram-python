@@ -1,0 +1,65 @@
+{% extends "capaivara.html" %}
+
+{% block head %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block styles %}
+        <!-- Bootstrap CSS -->
+        {{ bootstrap.load_css() }}
+        {{ bootstrap.load_js() }}
+    {% endblock %}
+
+    <title>testeee</title>
+{% endblock %}
+
+{% block body %}
+    {% block formulario %}
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm">
+        <form method="POST">
+            {{ form.csrf_token }}
+
+            {{ form.email.label() }}
+            {{ form.email() }}
+
+            {{ form.password.label() }}
+            {{ form.password() }}
+
+            {{ form.btn() }}
+
+        </form>
+    </nav>
+    {% endblock %}
+
+
+    <header class="masthead">
+        <div>
+            <div class="row gx-5 align-items-center">
+                <div class="col-lg-6">
+                    <!-- Mashead text and app badges-->
+                 
+                    {% for user in users: %}
+                    <div class="">
+                        <a href=" {{ url_for('profile', user_id=user.id) }} "> <h2> Ver Perfil de: {{user.username}} </h2></a> <br>
+                    </div>
+                    {% endfor %}
+         
+                </div>
+                <div class="col-lg-6">
+                    <!-- Masthead device mockup feature-->
+                    <div class="masthead-device-mockup">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    
+
+
+
+
+{% endblock %}
