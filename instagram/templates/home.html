@@ -16,14 +16,14 @@
 
 {% block body %}
   {% block formulario %}
-    <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-sm px-4 py-3">
-      <form method="POST">
+    <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-sm px-4 py-2">
+      <form method="POST" class="d-flex align-items-center" style="gap:1rem;">
         {{ form.csrf_token }}
         {{ form.email.label() }}
-        {{ form.email() }}
+        {{ form.email(class_="form-control") }}
         {{ form.password.label() }}
-        {{ form.password() }}
-        {{ form.btn() }}
+        {{ form.password(class_="form-control") }}
+        {{ form.btn(class_="btn btn-primary") }}
       </form>
     </nav>
   {% endblock %}

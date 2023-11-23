@@ -42,10 +42,10 @@
                   <form class="card-body" method="post" enctype="multipart/form-data">
                     {{ form.csrf_token }}
                     <h5 class="card-title">{{ form.text.label() }}</h5>
-                    <p class="card-text">{{ form.text }}</p>
+                    <p class="card-text">{{ form.text(class_="form-control") }}</p>
                     <h5 class="card-title">{{ form.photo.label() }}</h5>
                     <p class="card-text">{{ form.photo }}</p>
-                    {{ form.btn() }}
+                    {{ form.btn(class_="btn btn-primary") }}
                 </form>
             </div>
         {% endif %}
