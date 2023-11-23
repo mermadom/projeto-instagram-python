@@ -4,10 +4,9 @@
     Profile of {{ user.username }}
 {% endblock %}
 
-
 {% block body %}
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm">
-        <h3 class="me-lg-3"> Perfil de : {{ user.username }} </h3>
+    <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-sm px-4 py-2">
+        <h3 class="me-4"> Perfil de {{ user.username }} </h3>
         {% if not form %}
             {% if not blocked %}
                 <form method="post" action="{{ url_for('block', friend_id=user.id) }}">
@@ -24,58 +23,49 @@
         {% endif %}
         <div class="navbar-nav ms-auto me-4 my-3 my-lg-0">
             <li class="nav-item">
-                <a class="nav-link me-lg-3" href=" {{ url_for('homepage') }} ">BACK HOME</a>       
+                <a class="nav-link me-lg-3" href=" {{ url_for('homepage') }} ">BACK HOME</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link me-lg-3" href=" {{ url_for('logout') }} ">LOGOUT</a>    
+                <a class="nav-link me-lg-3" href=" {{ url_for('logout') }} ">LOGOUT</a>
             </li>
-                 
+
         </div>
-        
+
     </nav>
 
-    <header class="masthead">
-        <div>
-            <div class="row gx-5 align-items-center">
-                <div class="col-lg-6">
-                    <!-- Mashead text and app badges-->
-
-                    {% if form %}
-                        <h4>Seu Perfil ~ Pode postar</h4>
-
-                        <form method="post" enctype="multipart/form-data">
-                            {{ form.csrf_token }}
-
-                            {{ form.text.label() }}
-                            <p></p>
-                            {{ form.text }}
-
-                            {{ form.photo.label() }}
-                            {{ form.photo }}
-
-                            {{ form.btn() }}
-                        </form>
-
-                    {% endif %}
-
-                    {% for post in user.posts %}
-                        {% if not blocked %}
-                            <p>Post Text : {{ post.post_text }}</p>
-                            <img src="{{ url_for('static', filename='fotos_dos_posts/{}'.format(post.post_img) ) }}">
-                            <form method="post" action="{{ url_for('like', post_id=post.id, user_id=user.id) }}">
-                                {{ form.csrf_token }}
-                                <button type="submit" class="btn btn-success">Curtir</button> Curtidas - {{ post.likes }}
-                            </form>
-                        {% else %}
-                            <p>Você bloqueou este perfil.</p>
-                        {% endif %}
-                    {% endfor %}
-                        
-                </div>
+    <section class="d-flex flex-column align-items-center">
+        {% if form %}
+            <div class="card mb-4" style="width: 40rem;">
+                <div class="card-header">
+                    Seu Perfil · Pode postar
+                  </div>
+                  <form class="card-body" method="post" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+                    <h5 class="card-title">{{ form.text.label() }}</h5>
+                    <p class="card-text">{{ form.text }}</p>
+                    <h5 class="card-title">{{ form.photo.label() }}</h5>
+                    <p class="card-text">{{ form.photo }}</p>
+                    {{ form.btn() }}
+                </form>
             </div>
-        </div>
-    </header>
+        {% endif %}
 
-    
-
+        {% if not blocked %}
+            {% for post in user.posts %}
+                <div class="card mb-4" style="width: 40rem;">
+                    <img class="card-img-top" src="{{ url_for('static', filename='fotos_dos_posts/{}'.format(post.post_img) ) }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.post_text }}</h5>
+                        <p class="card-text">{{ post.likes }} curtida(s)</p>
+                        <form method="post" action="{{ url_for('like', post_id=post.id, user_id=user.id) }}">
+                        {{ form.csrf_token }}
+                            <button type="submit" class="btn btn-success">Curtir</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Você bloqueou este perfil.</p>
+        {% endif %}
+    </section>
 {% endblock %}

@@ -5,22 +5,29 @@
 {% endblock %}
 
 {% block body %}
-    <form method="POST">
-        {{ form.csrf_token }}
+    <section class="d-flex flex-column align-items-center p-4">
+        <div class="card" style="width: 40rem;">
+            <div class="card-header">
+                Criar conta
+            </div>
 
-        {{ form.email.label() }}
-        {{ form.email() }}
+            <form class="card-body" method="POST">
+                {{ form.csrf_token }}
 
-        {{ form.username.label() }}
-        {{ form.username() }}
+                <h5 class="card-title">{{ form.email.label() }}</h5>
+                <p class="card-text">{{ form.email }}</p>
 
-        {{ form.password.label() }}
-        {{ form.password() }}
+                <h5 class="card-title">{{ form.username.label() }}</h5>
+                <p class="card-text">{{ form.username }}</p>
 
-        {{ form.checkPassword.label() }}
-        {{ form.checkPassword() }}
+                <h5 class="card-title">{{ form.password.label() }}</h5>
+                <p class="card-text">{{ form.password }}</p>
 
-        {{ form.btn() }}
+                <h5 class="card-title">{{ form.checkPassword.label() }}</h5>
+                <p class="card-text">{{ form.checkPassword }}</p>
 
-    </form>
+                {{ form.btn() }}
+            </form>
+        </div>
+    </section>
 {% endblock %}
